@@ -1,0 +1,67 @@
+{
+  "header": {
+    "logo": "Reviewer",
+    "tagline": "AI-powered product reviews"
+  },
+  "hero": {
+    "title": "Turn any product link into a polished review",
+    "subtitle": "Paste a link from Amazon, AliExpress, or Wildberries. Choose your language and review style — we handle the rest.",
+    "badge": "MVP"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "step1": {
+      "title": "Paste your link",
+      "description": "Copy the product URL from your favorite marketplace."
+    },
+    "step2": {
+      "title": "Choose your options",
+      "description": "Pick marketplace, response language, and review type."
+    },
+    "step3": {
+      "title": "Get your review",
+      "description": "We scrape product details and generate an AI-written review."
+    }
+  },
+  "form": {
+    "title": "Generate a review",
+    "url": {
+      "label": "Product URL",
+      "placeholder": "https://www.amazon.com/dp/...",
+      "hint": "Full product page URL from the selected marketplace"
+    },
+    "marketplace": {
+      "label": "Marketplace"
+    },
+    "language": {
+      "label": "Response language",
+      "hint": "Language of the generated review text"
+    },
+    "prompt": {
+      "label": "Review type"
+    },
+    "submit": "Generate review",
+    "loading": "Generating…",
+    "loadingHint": "This may take a minute while we fetch product data and write your review."
+  },
+  "results": {
+    "productTitle": "Product",
+    "reviewTitle": "Generated review",
+    "price": "Price",
+    "overview": "Overview",
+    "description": "Description",
+    "generateAnother": "Generate another"
+  },
+  "errors": {
+    "urlRequired": "Please enter a product URL.",
+    "urlInvalid": "Please enter a valid URL.",
+    "network": "Could not reach the server. Check that the API is running.",
+    "generic": "Something went wrong. Please try again.",
+    "badRequest": "Invalid request. Check your URL and marketplace selection.",
+    "emptyReview": "Review was generated but came back empty. Please try again."
+  },
+  "footer": {
+    "mvp": "Reviewer MVP",
+    "copyright": "© {{year}} Reviewer"
+  }
+}
