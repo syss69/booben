@@ -1,0 +1,113 @@
+{
+  "header": {
+    "logo": "Booben",
+    "tagline": "Avis produits par IA"
+  },
+  "hero": {
+    "title": "Transformez un lien produit en avis soigné",
+    "subtitle": "Collez un lien de marketplace ou saisissez les détails manuellement. Nous récupérons les données, vous les vérifiez, puis l’IA rédige l’avis.",
+    "badge": "MVP"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "step1": {
+      "title": "Ajoutez un produit",
+      "description": "Collez une URL de marketplace ou renseignez titre, prix et détails vous-même."
+    },
+    "step2": {
+      "title": "Nous récupérons les données",
+      "description": "Pour les liens, notre parseur charge titre, prix, caractéristiques et description."
+    },
+    "step3": {
+      "title": "L’IA rédige l’avis",
+      "description": "Confirmez les données produit, puis recevez un avis dans la langue et le format choisis."
+    }
+  },
+  "modes": {
+    "link": "Via un lien",
+    "manual": "Saisie manuelle"
+  },
+  "form": {
+    "title": "Générer un avis",
+    "url": {
+      "label": "URL du produit",
+      "placeholder": "https://www.amazon.com/dp/...",
+      "hint": "URL complète de la page produit sur la marketplace sélectionnée"
+    },
+    "marketplace": {
+      "label": "Marketplace"
+    },
+    "language": {
+      "label": "Langue de l’avis",
+      "hint": "Langue du texte de l’avis généré"
+    },
+    "prompt": {
+      "label": "Type d’avis"
+    },
+    "fetchProduct": "Charger le produit",
+    "parsing": "Chargement…",
+    "parsingHint": "Récupération des données sur la marketplace. Cela peut prendre un moment.",
+    "generatingAi": "Rédaction de l’avis…",
+    "generatingAiHint": "Génération de votre avis par l’IA. Cela peut prendre une minute.",
+    "manual": {
+      "title": "Détails du produit",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "Nom du produit",
+      "priceLabel": "Prix",
+      "pricePlaceholder": "ex. 29,99 €",
+      "characteristicsLabel": "Caractéristiques",
+      "characteristicsPlaceholder": "Spécifications, matériaux, dimensions…",
+      "characteristicsHint": "Indiquez des caractéristiques ou une description (au moins un champ).",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Description du produit…",
+      "submit": "Générer l’avis"
+    }
+  },
+  "preview": {
+    "title": "Aperçu du produit",
+    "success": "Produit trouvé",
+    "generateReview": "Générer l’avis",
+    "back": "Retour au formulaire"
+  },
+  "results": {
+    "productTitle": "Produit",
+    "reviewTitle": "Avis généré",
+    "price": "Prix",
+    "overview": "Caractéristiques",
+    "description": "Description",
+    "generateAnother": "Générer un autre",
+    "copyReview": "Copier l’avis",
+    "copiedReview": "Copié !"
+  },
+  "marketplaces": {
+    "amazon-global": "Amazon",
+    "aliexpress": "AliExpress",
+    "wildberries": "Wildberries"
+  },
+  "prompts": {
+    "review": "Avis court (~150 mots)",
+    "blog": "Article de blog (~500 mots)"
+  },
+  "uiLanguage": {
+    "label": "Langue de l’interface",
+    "en": "English",
+    "ru": "Русский",
+    "fr": "Français"
+  },
+  "errors": {
+    "urlRequired": "Veuillez saisir l’URL du produit.",
+    "urlInvalid": "Veuillez saisir une URL valide.",
+    "titleRequired": "Veuillez saisir le titre du produit.",
+    "priceRequired": "Veuillez saisir le prix.",
+    "detailsRequired": "Veuillez indiquer des caractéristiques ou une description.",
+    "notFound": "Produit introuvable",
+    "network": "Impossible de joindre le serveur. Vérifiez que l’API est démarrée.",
+    "generic": "Une erreur s’est produite. Veuillez réessayer.",
+    "badRequest": "Requête invalide. Vérifiez vos données et réessayez.",
+    "emptyReview": "L’avis a été généré mais est vide. Veuillez réessayer."
+  },
+  "footer": {
+    "mvp": "Booben",
+    "copyright": "© {{year}} syss69"
+  }
+}

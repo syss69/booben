@@ -75,7 +75,7 @@ export function ReviewForm({ phase, apiError, onSubmit }: ReviewFormProps) {
             label={t('form.marketplace.label')}
             options={MARKETPLACES.map((m) => ({
               value: m.value,
-              label: m.labelKey,
+              label: t(`marketplaces.${m.value}`),
             }))}
             value={marketplace}
             onChange={(e) => setMarketplace(e.target.value as Marketplace)}
@@ -99,7 +99,7 @@ export function ReviewForm({ phase, apiError, onSubmit }: ReviewFormProps) {
           label={t('form.prompt.label')}
           options={PROMPTS.map((p) => ({
             value: p.value,
-            label: p.labelKey,
+            label: t(`prompts.${p.value}`),
           }))}
           value={prompt}
           onChange={(e) => setPrompt(e.target.value as PromptType)}

@@ -79,6 +79,21 @@
     "copyReview": "Copy review",
     "copiedReview": "Copied!"
   },
+  "marketplaces": {
+    "amazon-global": "Amazon",
+    "aliexpress": "AliExpress",
+    "wildberries": "Wildberries"
+  },
+  "prompts": {
+    "review": "Short review (~150 words)",
+    "blog": "Blog post (~500 words)"
+  },
+  "uiLanguage": {
+    "label": "Interface language",
+    "en": "English",
+    "ru": "Русский",
+    "fr": "Français"
+  },
   "errors": {
     "urlRequired": "Please enter a product URL.",
     "urlInvalid": "Please enter a valid URL.",
@@ -92,7 +107,7 @@
     "emptyReview": "Review was generated but came back empty. Please try again."
   },
   "footer": {
-    "mvp": "Booben MVP",
+    "mvp": "Booben",
     "copyright": "© {{year}} syss69"
   }
 }

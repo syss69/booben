@@ -130,7 +130,7 @@ export function ManualReviewForm({ phase, apiError, onSubmit }: ManualReviewForm
             label={t('form.prompt.label')}
             options={PROMPTS.map((p) => ({
               value: p.value,
-              label: p.labelKey,
+              label: t(`prompts.${p.value}`),
             }))}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value as PromptType)}
