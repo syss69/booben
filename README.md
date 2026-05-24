@@ -7,7 +7,7 @@ MVP frontend for the Reviewer API — generate AI product reviews from marketpla
 - React + TypeScript
 - Vite
 - Tailwind CSS v4
-- react-i18next (English UI; Russian and French planned)
+- react-i18next (English, Russian and French)
 
 ## Setup
 
