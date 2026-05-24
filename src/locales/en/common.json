@@ -1,27 +1,31 @@
 {
   "header": {
-    "logo": "Reviewer",
+    "logo": "Booben",
     "tagline": "AI-powered product reviews"
   },
   "hero": {
     "title": "Turn any product link into a polished review",
-    "subtitle": "Paste a link from Amazon, AliExpress, or Wildberries. Choose your language and review style — we handle the rest.",
+    "subtitle": "Paste a marketplace link or enter product details manually. We fetch the data, show you what we found, then write your review.",
     "badge": "MVP"
   },
   "howItWorks": {
     "title": "How it works",
     "step1": {
-      "title": "Paste your link",
-      "description": "Copy the product URL from your favorite marketplace."
+      "title": "Add a product",
+      "description": "Paste a marketplace URL or fill in title, price, and details yourself."
     },
     "step2": {
-      "title": "Choose your options",
-      "description": "Pick marketplace, response language, and review type."
+      "title": "We fetch product details",
+      "description": "For links, our parser loads title, price, characteristics, and description."
     },
     "step3": {
-      "title": "Get your review",
-      "description": "We scrape product details and generate an AI-written review."
+      "title": "AI writes your review",
+      "description": "Confirm the product data, then get a review in your chosen language and style."
     }
+  },
+  "modes": {
+    "link": "From link",
+    "manual": "Enter manually"
   },
   "form": {
     "title": "Generate a review",
@@ -40,28 +44,55 @@
     "prompt": {
       "label": "Review type"
     },
-    "submit": "Generate review",
-    "loading": "Generating…",
-    "loadingHint": "This may take a minute while we fetch product data and write your review."
+    "fetchProduct": "Fetch product",
+    "parsing": "Fetching…",
+    "parsingHint": "Loading product data from the marketplace. This may take a moment.",
+    "generatingAi": "Writing review…",
+    "generatingAiHint": "Generating your review with AI. This may take a minute.",
+    "manual": {
+      "title": "Product details",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Product name",
+      "priceLabel": "Price",
+      "pricePlaceholder": "e.g. $29.99",
+      "characteristicsLabel": "Characteristics",
+      "characteristicsPlaceholder": "Key specs, materials, dimensions…",
+      "characteristicsHint": "Provide characteristics or a description (at least one).",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Product description…",
+      "submit": "Generate review"
+    }
+  },
+  "preview": {
+    "title": "Product preview",
+    "success": "Product found",
+    "generateReview": "Generate review",
+    "back": "Back to form"
   },
   "results": {
     "productTitle": "Product",
     "reviewTitle": "Generated review",
     "price": "Price",
-    "overview": "Overview",
+    "overview": "Characteristics",
     "description": "Description",
-    "generateAnother": "Generate another"
+    "generateAnother": "Generate another",
+    "copyReview": "Copy review",
+    "copiedReview": "Copied!"
   },
   "errors": {
     "urlRequired": "Please enter a product URL.",
     "urlInvalid": "Please enter a valid URL.",
+    "titleRequired": "Please enter a product title.",
+    "priceRequired": "Please enter a price.",
+    "detailsRequired": "Please provide characteristics or a description.",
+    "notFound": "Product not found",
     "network": "Could not reach the server. Check that the API is running.",
     "generic": "Something went wrong. Please try again.",
-    "badRequest": "Invalid request. Check your URL and marketplace selection.",
+    "badRequest": "Invalid request. Check your input and try again.",
     "emptyReview": "Review was generated but came back empty. Please try again."
   },
   "footer": {
-    "mvp": "Reviewer MVP",
-    "copyright": "© {{year}} Reviewer"
+    "mvp": "Booben MVP",
+    "copyright": "© {{year}} syss69"
   }
 }

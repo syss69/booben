@@ -23,14 +23,34 @@ export interface Product {
   description: string;
 }
 
-export interface GenerateReviewResponse {
+export interface SimpleReviewPayload {
   product: Product;
-  review: string | null;
+  language: LanguageCode;
+  prompt: PromptType;
 }
 
-export interface GenerateReviewPayload {
+export interface SimpleReviewResponse {
+  review: string;
+}
+
+export interface ReviewResult {
+  product: Product;
+  review: string;
+}
+
+export type ReviewMode = 'link' | 'manual';
+
+export type FlowPhase =
+  | 'idle'
+  | 'parsing'
+  | 'productReady'
+  | 'generating'
+  | 'success'
+  | 'error';
+
+export interface LinkSubmitPayload {
   url: string;
   marketplace: Marketplace;
-  prompt: PromptType;
   language: LanguageCode;
+  prompt: PromptType;
 }

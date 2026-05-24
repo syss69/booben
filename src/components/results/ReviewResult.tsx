@@ -1,53 +1,48 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ProductCard } from '@/components/results/ProductCard';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import type { GenerateReviewResponse } from '@/types/review';
+import type { ReviewResult as ReviewResultData } from '@/types/review';
 
 interface ReviewResultProps {
-  data: GenerateReviewResponse;
+  data: ReviewResultData;
   onReset: () => void;
 }
 
 export function ReviewResult({ data, onReset }: ReviewResultProps) {
   const { t } = useTranslation();
   const { product, review } = data;
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(review);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  }
 
   return (
     <section className="px-6 py-6">
       <div className="mx-auto flex max-w-3xl flex-col gap-6">
-        <Card>
-          <h3 className="mb-4 text-lg font-semibold text-text">
-            {t('results.productTitle')}
-          </h3>
-          <dl className="flex flex-col gap-3 text-sm">
-            <div>
-              <dd className="text-base font-semibold text-text">{product.title}</dd>
-            </div>
-            {product.price && (
-              <div>
-                <dt className="font-medium text-muted">{t('results.price')}</dt>
-                <dd className="text-text">{product.price}</dd>
-              </div>
-            )}
-            {product.overview && (
-              <div>
-                <dt className="font-medium text-muted">{t('results.overview')}</dt>
-                <dd className="leading-relaxed text-text">{product.overview}</dd>
-              </div>
-            )}
-            {product.description && (
-              <div>
-                <dt className="font-medium text-muted">{t('results.description')}</dt>
-                <dd className="leading-relaxed text-text">{product.description}</dd>
-              </div>
-            )}
-          </dl>
-        </Card>
+        <ProductCard product={product} />
 
         <Card>
-          <h3 className="mb-4 text-lg font-semibold text-text">
-            {t('results.reviewTitle')}
-          </h3>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-lg font-semibold text-text">
+              {t('results.reviewTitle')}
+            </h3>
+            <Button
+              type="button"
+              onClick={() => void handleCopy()}
+              className="!bg-white !px-4 !py-2 !text-sm !text-text ring-1 ring-border hover:!bg-surface"
+            >
+              {copied ? t('results.copiedReview') : t('results.copyReview')}
+            </Button>
+          </div>
           <div className="whitespace-pre-wrap text-sm leading-relaxed text-text">
             {review}
           </div>

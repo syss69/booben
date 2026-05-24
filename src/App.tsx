@@ -2,12 +2,15 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { HowItWorks } from '@/components/sections/HowItWorks';
-import { ReviewForm } from '@/components/form/ReviewForm';
+import { ReviewSection } from '@/components/form/ReviewSection';
+import { ProductPreview } from '@/components/results/ProductPreview';
+import { GeneratingOverlay } from '@/components/results/GeneratingOverlay';
 import { ReviewResult } from '@/components/results/ReviewResult';
-import { useGenerateReview } from '@/hooks/useGenerateReview';
+import { useReviewFlow } from '@/hooks/useReviewFlow';
 
 function App() {
-  const { status, data, errorMessage, submit, reset } = useGenerateReview();
+  const flow = useReviewFlow();
+  const { phase, product, result, generateFromProduct, back, reset } = flow;
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-surface/50 to-background">
@@ -15,10 +18,20 @@ function App() {
       <main className="flex-1">
         <Hero />
         <HowItWorks />
-        {status === 'success' && data ? (
-          <ReviewResult data={data} onReset={reset} />
+
+        {phase === 'success' && result ? (
+          <ReviewResult data={result} onReset={reset} />
+        ) : phase === 'productReady' && product ? (
+          <ProductPreview
+            product={product}
+            generating={false}
+            onGenerate={() => void generateFromProduct()}
+            onBack={back}
+          />
+        ) : phase === 'generating' ? (
+          <GeneratingOverlay product={product} />
         ) : (
-          <ReviewForm status={status} apiError={errorMessage} onSubmit={submit} />
+          <ReviewSection flow={flow} />
         )}
       </main>
       <Footer />

@@ -1,6 +1,8 @@
 import type {
-  GenerateReviewPayload,
-  GenerateReviewResponse,
+  Marketplace,
+  Product,
+  SimpleReviewPayload,
+  SimpleReviewResponse,
 } from '@/types/review';
 
 function getApiBase(): string {
@@ -8,44 +10,78 @@ function getApiBase(): string {
   return base?.replace(/\/$/, '') ?? '/api';
 }
 
+interface NestErrorBody {
+  statusCode?: number;
+  message?: string | string[];
+}
+
 export class ReviewerApiError extends Error {
   status?: number;
+  detail?: string;
 
-  constructor(message: string, status?: number) {
-    super(message);
+  constructor(code: string, status?: number, detail?: string) {
+    super(code);
     this.name = 'ReviewerApiError';
     this.status = status;
+    this.detail = detail;
   }
 }
 
-export async function generateReview(
-  payload: GenerateReviewPayload,
-): Promise<GenerateReviewResponse> {
-  const url = `${getApiBase()}/ai`;
+async function request<T>(path: string, body: unknown): Promise<T> {
+  const url = `${getApiBase()}${path.startsWith('/') ? path : `/${path}`}`;
 
   let response: Response;
   try {
     response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     });
   } catch {
     throw new ReviewerApiError('network');
   }
 
   if (!response.ok) {
-    if (response.status === 400) {
-      throw new ReviewerApiError('badRequest', 400);
+    let detail: string | undefined;
+    try {
+      const errBody = (await response.json()) as NestErrorBody;
+      const msg = errBody.message;
+      if (typeof msg === 'string') {
+        detail = msg;
+      } else if (Array.isArray(msg)) {
+        detail = msg.join(', ');
+      }
+    } catch {
+      // ignore parse errors
     }
-    throw new ReviewerApiError('generic', response.status);
+
+    if (response.status === 404) {
+      throw new ReviewerApiError('notFound', 404, detail);
+    }
+    if (response.status === 400) {
+      throw new ReviewerApiError('badRequest', 400, detail);
+    }
+    throw new ReviewerApiError('generic', response.status, detail);
   }
 
-  const data = (await response.json()) as GenerateReviewResponse;
+  return (await response.json()) as T;
+}
+
+export async function parseProduct(
+  marketplace: Marketplace,
+  productUrl: string,
+): Promise<Product> {
+  return request<Product>(`/${marketplace}`, { url: productUrl });
+}
+
+export async function generateSimpleReview(
+  payload: SimpleReviewPayload,
+): Promise<SimpleReviewResponse> {
+  const data = await request<SimpleReviewResponse>('/ai/simple', payload);
 
   if (!data.review?.trim()) {
     throw new ReviewerApiError('emptyReview');
   }
 
-  return data;
+  return { review: data.review };
 }

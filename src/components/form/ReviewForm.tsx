@@ -8,20 +8,20 @@ import { MARKETPLACES } from '@/constants/marketplaces';
 import { LANGUAGES } from '@/constants/languages';
 import { PROMPTS } from '@/constants/prompts';
 import type {
-  GenerateReviewPayload,
+  FlowPhase,
   LanguageCode,
+  LinkSubmitPayload,
   Marketplace,
   PromptType,
 } from '@/types/review';
-import type { ReviewStatus } from '@/hooks/useGenerateReview';
 
 interface ReviewFormProps {
-  status: ReviewStatus;
+  phase: FlowPhase;
   apiError: string | null;
-  onSubmit: (payload: GenerateReviewPayload) => void;
+  onSubmit: (payload: LinkSubmitPayload) => void;
 }
 
-export function ReviewForm({ status, apiError, onSubmit }: ReviewFormProps) {
+export function ReviewForm({ phase, apiError, onSubmit }: ReviewFormProps) {
   const { t } = useTranslation();
   const [url, setUrl] = useState('');
   const [marketplace, setMarketplace] = useState<Marketplace>('amazon-global');
@@ -29,7 +29,8 @@ export function ReviewForm({ status, apiError, onSubmit }: ReviewFormProps) {
   const [prompt, setPrompt] = useState<PromptType>('review');
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  const loading = status === 'loading';
+  const parsing = phase === 'parsing';
+  const disabled = parsing;
   const displayError = validationError ?? apiError;
 
   function handleSubmit(e: FormEvent) {
@@ -53,72 +54,68 @@ export function ReviewForm({ status, apiError, onSubmit }: ReviewFormProps) {
   }
 
   return (
-    <section className="px-6 py-6" id="generate">
-      <div className="mx-auto max-w-3xl">
-        <Card>
-          <h2 className="mb-6 text-xl font-semibold text-text">{t('form.title')}</h2>
+    <Card>
+      <h2 className="mb-6 text-xl font-semibold text-text">{t('form.title')}</h2>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <Input
-              label={t('form.url.label')}
-              type="url"
-              placeholder={t('form.url.placeholder')}
-              hint={t('form.url.hint')}
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              disabled={loading}
-              error={displayError ?? undefined}
-              required
-            />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <Input
+          label={t('form.url.label')}
+          type="url"
+          placeholder={t('form.url.placeholder')}
+          hint={t('form.url.hint')}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          disabled={disabled}
+          error={displayError ?? undefined}
+          required
+        />
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <Select
-                label={t('form.marketplace.label')}
-                options={MARKETPLACES.map((m) => ({
-                  value: m.value,
-                  label: m.labelKey,
-                }))}
-                value={marketplace}
-                onChange={(e) => setMarketplace(e.target.value as Marketplace)}
-                disabled={loading}
-              />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Select
+            label={t('form.marketplace.label')}
+            options={MARKETPLACES.map((m) => ({
+              value: m.value,
+              label: m.labelKey,
+            }))}
+            value={marketplace}
+            onChange={(e) => setMarketplace(e.target.value as Marketplace)}
+            disabled={disabled}
+          />
 
-              <Select
-                label={t('form.language.label')}
-                hint={t('form.language.hint')}
-                options={LANGUAGES.map((l) => ({
-                  value: l.value,
-                  label: l.label,
-                }))}
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as LanguageCode)}
-                disabled={loading}
-              />
-            </div>
+          <Select
+            label={t('form.language.label')}
+            hint={t('form.language.hint')}
+            options={LANGUAGES.map((l) => ({
+              value: l.value,
+              label: l.label,
+            }))}
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as LanguageCode)}
+            disabled={disabled}
+          />
+        </div>
 
-            <Select
-              label={t('form.prompt.label')}
-              options={PROMPTS.map((p) => ({
-                value: p.value,
-                label: p.labelKey,
-              }))}
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value as PromptType)}
-              disabled={loading}
-            />
+        <Select
+          label={t('form.prompt.label')}
+          options={PROMPTS.map((p) => ({
+            value: p.value,
+            label: p.labelKey,
+          }))}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value as PromptType)}
+          disabled={disabled}
+        />
 
-            {loading && (
-              <p className="rounded-xl bg-primary-muted px-4 py-3 text-sm text-primary-hover">
-                {t('form.loadingHint')}
-              </p>
-            )}
+        {parsing && (
+          <p className="rounded-xl bg-primary-muted px-4 py-3 text-sm text-primary-hover">
+            {t('form.parsingHint')}
+          </p>
+        )}
 
-            <Button type="submit" loading={loading} className="w-full sm:w-auto">
-              {loading ? t('form.loading') : t('form.submit')}
-            </Button>
-          </form>
-        </Card>
-      </div>
-    </section>
+        <Button type="submit" loading={parsing} className="w-full sm:w-auto">
+          {parsing ? t('form.parsing') : t('form.fetchProduct')}
+        </Button>
+      </form>
+    </Card>
   );
 }
