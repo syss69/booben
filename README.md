@@ -37,6 +37,19 @@ Open http://localhost:5173
 - **Direct:** `VITE_API_URL=http://localhost:3000` (requires CORS on the API)
 - **Proxy (recommended in dev):** `VITE_API_URL=/api` — Vite proxies `/api` → `http://localhost:3000`
 
+### Vercel
+
+**Frontend project** (recommended — no CORS):
+
+| Variable | Example |
+|----------|---------|
+| `VITE_API_URL` | `/api` |
+| `API_UPSTREAM` | `https://your-api.vercel.app` |
+
+Redeploy after changing env vars. `api/[...path].ts` proxies `/api/*` to the backend (same as nginx/Docker).
+
+**Direct API URL** in the bundle: set `VITE_API_URL=https://your-api.vercel.app`. For Nest on Vercel, `/api` is added to paths automatically for `*.vercel.app` hosts, or set `VITE_API_URL=https://your-api.vercel.app/api` and `VITE_API_INCLUDE_PREFIX=false`.
+
 ## Scripts
 
 | Command | Description |

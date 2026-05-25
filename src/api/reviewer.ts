@@ -1,14 +1,10 @@
+import { buildApiUrl } from '@/api/config';
 import type {
   Marketplace,
   Product,
   SimpleReviewPayload,
   SimpleReviewResponse,
 } from '@/types/review';
-
-function getApiBase(): string {
-  const base = import.meta.env.VITE_API_URL as string | undefined;
-  return base?.replace(/\/$/, '') ?? '/api';
-}
 
 interface NestErrorBody {
   statusCode?: number;
@@ -28,7 +24,7 @@ export class ReviewerApiError extends Error {
 }
 
 async function request<T>(path: string, body: unknown): Promise<T> {
-  const url = `${getApiBase()}${path.startsWith('/') ? path : `/${path}`}`;
+  const url = buildApiUrl(path);
 
   let response: Response;
   try {
